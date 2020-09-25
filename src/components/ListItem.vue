@@ -1,18 +1,17 @@
 <template>
   <div>
-    <list-item></list-item>
-    <!-- <ul class="news-list">
-      <li v-for="item in this.$store.state.ask" v-bind:key="item" class="post">
-        
+    <ul class="news-list">
+      <li v-for="item in this.$store.state.news" v-bind:key="item" class="post">
+        <!-- 포인트 영역 --> 
         <div class="points">
           {{item.points}}
         </div>
-        
+        <!-- 기타 정보 영역 -->
         <div>
           <p class='news-title'>
-            <router-link v-bind:to="`item/${item.id}`">
+            <a v-bind:href="item.url">
               {{ item.title }}
-            </router-link>
+            </a>
           </p>
           <small class="link-text">
             {{ item.time_ago}} by
@@ -20,26 +19,26 @@
           </small>
         </div>
       </li>
-    </ul> -->
+    </ul>
   </div>
 </template>
 
 <script>
-import ListItem from '../components/ListItem.vue';
-//import { mapGetters } from 'vuex';
-
 export default {
-  components: {
-    ListItem,
+  created() {
+    //this.$store.dispatch('FETCH_NEWS');
+    const name = this.$route.name;
+    if(name === 'news') {
+      this.$store.dispatch('FETCH_NEWS');
+    } else if(name === 'ask') {
+      this.$store.dispatch('FETCH_ASK');
+    } else if (name === 'jobs') {
+      this.$store.dispatch('FETCH_JOBS');
+    } 
+  },
+  computed: {
+    
   }
-  // computed: {
-  //   ...mapGetters([
-  //     'fetchedAsk'
-  //   ]),
-  // },
-  // created() {
-  //   this.$store.dispatch('FETCH_ASK');
-  // }
 }
 </script>
 
