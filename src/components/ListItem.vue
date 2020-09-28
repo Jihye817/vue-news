@@ -1,21 +1,34 @@
 <template>
   <div>
     <ul class="news-list">
-      <li v-for="item in this.$store.state.news" v-bind:key="item" class="post">
+      <li v-for="item in listItems" v-bind:key="item" class="post">
         <!-- 포인트 영역 --> 
         <div class="points">
-          {{item.points}}
+          {{item.points || 0}}
         </div>
         <!-- 기타 정보 영역 -->
         <div>
+          <!-- 타이틀 영역 --> 
           <p class='news-title'>
-            <a v-bind:href="item.url">
-              {{ item.title }}
-            </a>
+            <template v-if="item.domain">
+              <a v-bind:href="item.url">
+                {{ item.title }}
+              </a>
+            </template>
+            <template>
+              <router-link v-bind:to="`item/${item.id}`">
+                {{item.title}}
+              </router-link>
+            </template>
           </p>
           <small class="link-text">
             {{ item.time_ago}} by
-            <router-link v-bind:to="`/user/${item.user}`" class="link-text">{{ item.user }}</router-link>
+            <router-link v-if="item.user"
+              v-bind:to="`/user/${item.user}`" class="link-text">{{ item.user }}
+            </router-link>
+            <a :href="item.url" v-else>
+              {{item.domain}}
+            </a>
           </small>
         </div>
       </li>
@@ -37,7 +50,17 @@ export default {
     } 
   },
   computed: {
-    
+    // eslint-disable-next-line vue/return-in-computed-property
+    listItems() {
+      const name = this.$route.name;
+      if(name === 'news') {
+        return this.$store.state.news;
+      } else if(name === 'ask') {
+        return this.$store.state.ask;
+      } else if (name === 'jobs') {
+        return this.$store.state.jobs;
+      } 
+    }
   }
 }
 </script>
