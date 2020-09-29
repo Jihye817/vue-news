@@ -6,13 +6,16 @@
 
 <script>
 import ListItem from "../components/ListItem.vue";
-//import bus from "../utils/bus.js";
+// import bus from "../utils/bus.js";
 import ListMixin from '../mixins/ListMixin.js';
 
 export default {
   components: {
     ListItem,
   },
+  // mounted() {
+  //   bus.$emit("end:spinner");
+  // }
   mixins: [ListMixin],
   // created() {
   //   bus.$emit("start:spinner");
