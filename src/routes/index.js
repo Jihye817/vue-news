@@ -21,13 +21,15 @@ export const router = new VueRouter({
       //component : url 주소로 갔을 때 표시될 컴포넌트
       //component: createListView('NewsView'),
       component: NewsView,
+      //to -> 이동할 URL의 라우팅 정보
+      //from -> 현재 URL의 라우팅 정보
       beforeEnter: (to, from, next) => {
         bus.$emit("start:spinner");
         store.dispatch("FETCH_LIST", to.name)
           .then(() => {
             console.log("fetched");
             bus.$emit("end:spinner");
-            next();
+            next(); //페이지 전환
           })
           .catch(error => {
             console.log(error);
