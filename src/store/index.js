@@ -14,7 +14,7 @@ export const store = new Vuex.Store({
     item: {},
     list: [],
   },
-  getters: {
+  getters: { //computed와 동일한 속성인데 store에 있는 것.
     fetchedAsk(state) {
       return state.ask;
     },

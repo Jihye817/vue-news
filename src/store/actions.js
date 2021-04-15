@@ -14,7 +14,7 @@ export default {
   // },
   async FETCH_NEWS(context) {
     const response = await fetchNewsList();
-    context.commit('SET_NEWS', response.data);
+    context.commit('SET_NEWS', response.data); //commit 이라는 API를 이용해서 mutation에 데이터를 넘길 수 있음 => SET_NEWS 실행할 때 response.data를 넘겨준다.
     return response;
   },
   async FETCH_ASK({commit}) {

@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<style scoped>
+<style scoped> /* 해당 컴포넌트에만 적용되는 style -> scoped */
   .header{
     color: white;
     background-color: #42b883;
